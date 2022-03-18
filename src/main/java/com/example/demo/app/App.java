@@ -35,6 +35,30 @@ public class App {
     }
 
     private static void crearListaNacionalidades(List<Player> jugadores) {
+        IFiltros filtro;
+        List<String> paises = new ArrayList<>();
+
+        filtro = new IFiltros() {
+
+            @Override
+            public boolean comparacion(Player jugador) {
+                
+                if (paises.contains(jugador.getNational())){
+                    return false;
+                } else{
+                    paises.add(jugador.getNational());
+                    return true;
+                }
+            }
+        };
+
+        jugadores.forEach(jugador -> {
+            filtro.comparacion(jugador);
+        });
+
+        paises.forEach(pais -> {
+            System.out.println("Nacionalidad: " + pais);
+        });
     }
 
     private static void consultarNacionalidadPorNombre(List<Player> jugadores) {
