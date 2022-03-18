@@ -1,4 +1,5 @@
 .idea
 build
 .gradle
-bin/*
+/bin/
+files/data.csv

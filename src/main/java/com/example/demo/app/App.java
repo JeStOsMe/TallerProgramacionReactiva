@@ -38,6 +38,37 @@ public class App {
     }
 
     private static void consultarNacionalidadPorNombre(List<Player> jugadores) {
+        IFiltros filtro;
+        String nombre;
+        List<Player> filtrados = new ArrayList<>();
+
+        System.out.print("Ingrese el nombre del jugador a consultar: ");
+        nombre = sc.nextLine();
+
+        filtro = new IFiltros() {
+
+            @Override
+            public boolean comparacion(Player jugador) {
+                
+                if (jugador.getName().strip().toLowerCase().contains(nombre.strip().toLowerCase())){
+                    return true;
+                } else{
+                    return false;
+                }
+            }
+        };
+
+        jugadores.forEach(jugador -> {
+            if (filtro.comparacion(jugador)){
+                filtrados.add(jugador);
+            }
+        });
+
+        if (filtrados.size() < 1){
+            System.out.println("No se encontraron jugadores con el nombre " + nombre);
+        } else{
+            filtrados.forEach(jugador -> {System.out.println(jugador.toString());});
+        }
     }
 
     private static void consultarPorClub(List<Player> jugadores) {
@@ -65,8 +96,13 @@ public class App {
                 filtrados.add(jugador);
             }
         });
-        System.out.println("*** " + filtrados.size());
-        filtrados.forEach(jugador -> {System.out.println(jugador.toString());});
+        
+        if (filtrados.size() < 1){
+            System.out.println("No se  encontró ningún jugador perteneciente al club " + club);
+        } else{
+            filtrados.forEach(jugador -> {System.out.println(jugador.toString());});
+        }
+        
     }
 
     private static void consultarPorEdad(List<Player> jugadores) {
