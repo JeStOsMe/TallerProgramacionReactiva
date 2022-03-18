@@ -41,6 +41,32 @@ public class App {
     }
 
     private static void consultarPorClub(List<Player> jugadores) {
+        IFiltros filtro;
+        String club;
+        List<Player> filtrados = new ArrayList<>();
+
+        System.out.print("\nIngrese el club a filtrar: ");
+        club = sc.nextLine();
+
+        filtro = new IFiltros() {
+
+            @Override
+            public boolean comparacion(Player jugador) {
+
+                if (jugador.getClub().toLowerCase().strip().equals(club.toLowerCase().strip())){
+                    return true;
+                }
+                return false;
+            }
+        };
+
+        jugadores.forEach(jugador  -> {
+            if (filtro.comparacion(jugador)){
+                filtrados.add(jugador);
+            }
+        });
+        System.out.println("*** " + filtrados.size());
+        filtrados.forEach(jugador -> {System.out.println(jugador.toString());});
     }
 
     private static void consultarPorEdad(List<Player> jugadores) {
